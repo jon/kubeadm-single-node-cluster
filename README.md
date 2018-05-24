@@ -4,13 +4,21 @@ This tutorial will walk you through bootstrapping a single-node Kubernetes clust
 
 ## Tutorial
 
+Create an image with nested virtualization enabled:
+
+```bash
+gcloud compute images create nested-ubuntu-1804-lts \
+  --source-image-family=ubuntu-1804-lts \
+  --source-image-project=ubuntu-os-cloud \
+  --licenses=https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx
+```
+
 Create a single compute instance:
 
 ```bash
 gcloud compute instances create kubeadm-single-node-cluster \
   --can-ip-forward \
-  --image-family ubuntu-1804-lts \
-  --image-project ubuntu-os-cloud \
+  --image nested-ubuntu-1804-lts \
   --machine-type n1-standard-4 \
   --metadata kubernetes-version=stable-1.10 \
   --metadata-from-file startup-script=startup.sh \

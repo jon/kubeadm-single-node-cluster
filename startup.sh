@@ -71,3 +71,7 @@ sudo chmod 644 /etc/kubernetes/admin.conf
 kubectl apply \
   -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml \
   --kubeconfig /etc/kubernetes/admin.conf
+
+kubectl apply \
+  -f https://raw.githubusercontent.com/egernst/kata-deploy/master/kata-deploy.yaml \
+  --kubeconfig /etc/kubernetes/admin.conf
