@@ -87,13 +87,17 @@ Server Version: v1.10.3
 Create a nginx deployment:
 
 ```
-kubectl run nginx --image nginx:1.13 --port 80
+kubectl run nginx --image nginx:1.13 --port 80 --overrides '{"spec": {"template": {"metadata": {"annotations": {"io.kubernetes.cri.untrusted-workload": "true"}}}}}'
 ```
 
 Expose the nginx deployment:
 
+TODO(jonolson): This may be broken -- LoadBalancer for a single-node cluster
+seems to never become healthy, and this may have been true since Kube 1.6 based
+on the code.
+
 ```
-kubectl expose deployment nginx --type LoadBalancer
+kubectl expose deployment nginx-untrusted --type LoadBalancer
 ```
 
 ## Cleanup
